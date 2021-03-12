@@ -19,6 +19,14 @@ public class EventDTO {
 
     }
     public EventDTO(Long id, String name, String description, String place, LocalTime start_time, LocalDate enddate, LocalDate startdate, LocalTime end_time, String email) {
+        setName(name);
+        setDescription(description);
+        setPlace(place);
+        setStart_time(start_time);
+        setStartdate(startdate);
+        setEnddate(enddate);
+        setEnd_time(end_time);
+        setEmail(email);
     }
 
     public String getName() {
