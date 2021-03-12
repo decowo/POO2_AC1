@@ -101,4 +101,14 @@ public class EventDTO {
     private LocalTime start_time;
     private LocalTime end_time;
     private String email;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 }

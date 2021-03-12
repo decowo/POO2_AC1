@@ -1,14 +1,11 @@
 package Ac1.Event.Controllers;
 
 import Ac1.Event.DTO.EventDTO;
+import Ac1.Event.DTO.EventUpdateDTO;
 import Ac1.Event.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -30,5 +27,14 @@ public class EventController {
         EventDTO dto = service.getEventById(id);
         return ResponseEntity.ok().body(dto);
     }
-
+    @PutMapping("/{id}")
+    public ResponseEntity<EventDTO> update(@RequestBody EventUpdateDTO updateDto, @PathVariable Long id){
+        EventDTO dto = service.update(id, updateDto);
+        return ResponseEntity.ok().body(dto);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
