@@ -1,0 +1,2 @@
+insert into TB_Event (name, description, place, email) values ('bar', 'bar na esquina', 'Esquina', 'Bar@gmail.com')
+insert into TB_Event  (name, description, place, email) values ('Parmegiana', 'Rodizio parmegiana','Santa Rosalia','Rodizioparmegiana@facens.br')
