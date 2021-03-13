@@ -1,6 +1,7 @@
 package Ac1.Event.Service;
 
 import Ac1.Event.DTO.EventDTO;
+import Ac1.Event.DTO.EventInsertDTO;
 import Ac1.Event.DTO.EventUpdateDTO;
 import Ac1.Event.Entity.Event;
 import Ac1.Event.Repository.EventRepo;
@@ -65,5 +66,10 @@ public void delete (long id)
     }
 }
 
+    public EventDTO insert(EventInsertDTO insertDTO) {
+        Event entity = new Event(insertDTO);
+        entity = repo.save(entity);
+        return new EventDTO(entity);
+    }
 
 }

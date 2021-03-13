@@ -1,11 +1,16 @@
 package Ac1.Event.Controllers;
 
 import Ac1.Event.DTO.EventDTO;
+import Ac1.Event.DTO.EventInsertDTO;
 import Ac1.Event.DTO.EventUpdateDTO;
+import Ac1.Event.Entity.Event;
 import Ac1.Event.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -36,5 +41,11 @@ public class EventController {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping
+    public ResponseEntity<EventDTO> insert(@RequestBody EventInsertDTO insertDto){
+        EventDTO dto = service.insert(insertDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }

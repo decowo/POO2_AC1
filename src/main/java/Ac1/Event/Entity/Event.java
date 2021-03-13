@@ -1,5 +1,7 @@
 package Ac1.Event.Entity;
 
+import Ac1.Event.DTO.EventInsertDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,9 +12,19 @@ import java.time.LocalTime;
 public class Event  implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public Event(EventInsertDTO insertDTO) {
+        this.name= insertDTO.getName();
+        this.description=insertDTO.getDescription();
+        this.place=insertDTO.getPlace();
+        this.startdate=insertDTO.getStartdate();
+        this.enddate=insertDTO.getEnddate();
+        this.start_time=insertDTO.getStart_time();
+        this.start_time=insertDTO.getStart_time();
+        this.end_time=insertDTO.getEnd_time();
+        this.email=insertDTO.getEmail();
+    }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Event() {
     }
 
     public Long getId() {
