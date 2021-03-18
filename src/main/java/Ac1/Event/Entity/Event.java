@@ -1,6 +1,7 @@
 package Ac1.Event.Entity;
 
 import Ac1.Event.DTO.EventInsertDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -105,7 +106,9 @@ public class Event  implements Serializable {
     private String name;
     private String description;
     private String place;
+    @JsonFormat(pattern = "yyyy-MM-dd-")
     private LocalDate startdate;
+    @JsonFormat(pattern = "yyyy-MM-dd-")
     private LocalDate enddate;
     private LocalTime start_time;
     private LocalTime end_time;

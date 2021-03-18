@@ -1,5 +1,7 @@
 package Ac1.Event.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -71,7 +73,9 @@ public class EventInsertDTO {
     private String name;
     private String description;
     private String place;
+    @JsonFormat(pattern = "yyyy-MM-dd-")
     private LocalDate startdate;
+    @JsonFormat(pattern = "yyyy-MM-dd-")
     private LocalDate enddate;
     private LocalTime start_time;
     private LocalTime end_time;
