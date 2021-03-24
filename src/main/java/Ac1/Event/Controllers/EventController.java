@@ -6,6 +6,9 @@ import Ac1.Event.DTO.EventUpdateDTO;
 import Ac1.Event.Entity.Event;
 import Ac1.Event.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,9 +23,19 @@ public class EventController {
     private EventService service;
 
     @GetMapping
-    public ResponseEntity<List<EventDTO>> getEvents()
+    public ResponseEntity<Page<EventDTO>> getEvents(
+            @RequestParam(value = "page",         defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "6") Integer linesPerPage,
+            @RequestParam(value = "direction",    defaultValue = "ASC") String direction,
+            @RequestParam(value = "orderBy",      defaultValue = "id") String orderBy,
+            @RequestParam(value = "name",         defaultValue = "") String name,
+            @RequestParam(value = "place",      defaultValue = "") String place
+    )
     {
-        List <EventDTO> list = service.getEvent();
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),orderBy);
+
+        Page <EventDTO> list = service.getEvent(pageRequest, name.trim(), place.trim());
+
         return ResponseEntity.ok().body(list);
     }
 
