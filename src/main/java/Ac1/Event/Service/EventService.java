@@ -5,6 +5,7 @@ import Ac1.Event.DTO.EventInsertDTO;
 import Ac1.Event.DTO.EventUpdateDTO;
 import Ac1.Event.Entity.Event;
 import Ac1.Event.Repository.EventRepo;
+import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,11 @@ public class EventService {
     public Page<EventDTO> getEvent(PageRequest pageRequest, String name, String place) {
         Page<Event> list = repo.find(pageRequest, name, place);
         return list.map( c -> new EventDTO(c));
+    }
+    public EventDTO getEventbyDescription(String Description) {
+        Optional<Event> op = repo.findDescrip(Description);
+        Event event = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        return new EventDTO(event);
     }
 
     private List<EventDTO> toDTOList(List<Event> list) {

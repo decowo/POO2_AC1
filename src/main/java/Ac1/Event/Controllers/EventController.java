@@ -29,7 +29,9 @@ public class EventController {
             @RequestParam(value = "direction",    defaultValue = "ASC") String direction,
             @RequestParam(value = "orderBy",      defaultValue = "id") String orderBy,
             @RequestParam(value = "name",         defaultValue = "") String name,
-            @RequestParam(value = "place",      defaultValue = "") String place
+            @RequestParam(value = "place",      defaultValue = "") String place,
+            @RequestParam(value = "description",      defaultValue = "") String Description
+
     )
     {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),orderBy);
@@ -43,6 +45,14 @@ public class EventController {
     public ResponseEntity<EventDTO> getEventById(@PathVariable long id)
     {
         EventDTO dto = service.getEventById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @GetMapping("/description/{description}")
+    public ResponseEntity<EventDTO> getDescription(@PathVariable String description)
+    {
+        EventDTO dto = service.getEventbyDescription(description);
+
         return ResponseEntity.ok().body(dto);
     }
     @PutMapping("/{id}")
