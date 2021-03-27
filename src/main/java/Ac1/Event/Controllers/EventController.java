@@ -3,7 +3,6 @@ package Ac1.Event.Controllers;
 import Ac1.Event.DTO.EventDTO;
 import Ac1.Event.DTO.EventInsertDTO;
 import Ac1.Event.DTO.EventUpdateDTO;
-import Ac1.Event.Entity.Event;
 import Ac1.Event.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,6 +54,22 @@ public class EventController {
 
         return ResponseEntity.ok().body(dto);
     }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<EventDTO> getName(@PathVariable String name)
+    {
+        EventDTO dto = service.getEventbyname(name);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+@GetMapping("/place/{place}")
+public ResponseEntity<EventDTO> getPlace(@PathVariable String place)
+{
+    EventDTO dto = service.getEventbyplace(place);
+
+    return ResponseEntity.ok().body(dto);
+}
+
     @PutMapping("/{id}")
     public ResponseEntity<EventDTO> update(@RequestBody EventUpdateDTO updateDto, @PathVariable Long id){
         EventDTO dto = service.update(id, updateDto);

@@ -5,14 +5,12 @@ import Ac1.Event.DTO.EventInsertDTO;
 import Ac1.Event.DTO.EventUpdateDTO;
 import Ac1.Event.Entity.Event;
 import Ac1.Event.Repository.EventRepo;
-import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -30,6 +28,16 @@ public class EventService {
     }
     public EventDTO getEventbyDescription(String Description) {
         Optional<Event> op = repo.findDescrip(Description);
+        Event event = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        return new EventDTO(event);
+    }
+    public EventDTO getEventbyname(String name) {
+        Optional<Event> op = ((EventRepo) repo).findName(name);
+        Event event = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        return new EventDTO(event);
+    }
+    public EventDTO getEventbyplace(String place) {
+        Optional<Event> op = repo.findPlace(place);
         Event event = op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         return new EventDTO(event);
     }
